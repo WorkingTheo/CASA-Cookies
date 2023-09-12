@@ -42,6 +42,12 @@ const app = (
   });
 
   ancillaryRouter.use('/start', (req: Request, res: Response) => {
+    if(req.method === 'POST') {
+      console.log('POST');
+      console.log(req.body.cookies);
+    } else {
+      console.log('GET');
+    }
     res.render('pages/start.njk');
   });
 
