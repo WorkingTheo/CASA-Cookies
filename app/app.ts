@@ -54,9 +54,14 @@ const app = (
   ancillaryRouter.prependUse((req: Request, res: Response, next: NextFunction) => {
     const cookieChoiceMade = req.cookies['cookieChoiceMade'];
     console.log('cookieChoiceMade:', cookieChoiceMade);
+    res.locals.showBanner = cookieChoiceMade === undefined;
 
     if(cookieChoiceMade === 'accept') {
       res.locals.allowCookies = true;
+    }
+
+    if(cookieChoiceMade === 'reject') {
+      res.locals.allowCookies = false;
     }
 
     next();
