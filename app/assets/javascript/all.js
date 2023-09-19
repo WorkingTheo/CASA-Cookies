@@ -55,14 +55,11 @@ const attachHideClickHandler = (document) => {
 }
 
 function initAll() {
-  console.log('init');
-  attachAcceptClickHandler(document);
-  attachRejectClickHandler(document);
-  attachHideClickHandler(document);
+  // console.log('init');
+  // attachAcceptClickHandler(document);
+  // attachRejectClickHandler(document);
+  // attachHideClickHandler(document);
 
-  //document.querySelector('[value="reject"][name="cookies"]')
 }
 
 initAll();
-
-// exports.initAll = initAll;
