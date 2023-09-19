@@ -1,40 +1,19 @@
-# CASA-TypeScript
-CASA project with TypeScript
+# CASA-Cookies
+CASA Cookies project, demonstrating cookie-banner functionality.
 
 ## How to Run
 Pull the repo, call `npm i` and then `npm start`. In your browser open `localhost:3000/start`.
+There are 2 branches, `main` and `second-approach`. 
 
-# Breakdown
-## tsconfig
-```
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "target": "es6",
-    "resolveJsonModule": true,
-  },
-  "include": [
-    "app"
-  ],
-  "exclude": ["node_modules", "**/*.spec.ts"]
-}
-```
-`target`: node uses `commonjs`
-`outDir`: output directory, doesn't matter what it's called as long as its consistent in the gulpfile
-`esModuleInterop`: allows importing CJS modules into ESM project 
-`target`: output language level (ECMAScript 6)
-`resolveJsonModule`: allows importing json files 
+The `main` branch employs the following approach: 
+- `./app/assets/javascript/all.js` is run (see `./app/views/layouts/main.njk` line 8)
+- The code in `all.js` initialises click handlers for the buttons (`accepts` and `reject` buttons in the first banner, and `hide message` for the second)
+- When the user clicks a button, the choice they made is saved as a cookie, and the choice is also sent in a `POST` request 
+- The `POST` request handler reads the user's choice from the cookies of the request and makes a variable available to nunjucks: 
+  - namely `showBanner` and `showSecondBanner` (see `./app/app.ts` lines 57 and 61)
+  - additionally, based on the user's choice, `allowCookies` is set to `true` or `false` (see `./app/app.ts` lines 64 and 68)
+  - the GTM code is conditionally rendered based on the choice (see `.app/views/partials/gtm-body.njk` and `.app/views/partials/gtm-head.njk` line 1)
 
-We don't need to set `typeRoots` because `node_modules/@types` is included by default.
-
-## gulpfile 
-CASA projects typically use gulp to group everything together - it's especially useful because we need to grab some things from multiple places (like CSS, images and fonts from the `@dwp/govuk-casa` dependency) 
-
-## Pitfalls
-Some pitfalls I fell in to avoid: 
- 1. Relative imports: TypeScript gets compiled to JavaScript in the `outDir` location, so using relative imports may cause confusion because the code that gets execute will have a different path
- 2. CASA loves `object` type: sometimes digging through the code to figure out the structure of the object is the only solution
- 3. `main` and `journey` templates: they exist in `node_modules/@dwp/govuk-casa/views/casa/layouts` directory, while the `template.njk` that they extends lives in `node_modules/govuk-frontend/govuk/template.njk`, it's useful to know this if you're going to modify any behaviour
-
+The `second-approach` branch employs a similar approach to the above, but with a slight difference: 
+- The click handlers are in `script` tags and are added conditionally inside the `if` statements (see `.app/views/pages/start.njk`)
+- This way the click handlers are only added when needed
