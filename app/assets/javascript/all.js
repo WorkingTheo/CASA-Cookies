@@ -23,6 +23,9 @@ function getCookie(name) {
 
 const attachAcceptClickHandler = (document) => {
   const acceptButton = document.querySelector('[value="accept"][name="cookies"]');
+  if(!acceptButton) {
+    return;
+  }
   acceptButton.onclick = () => { 
     console.log('CLICKED ACCEPT');
     setCookie('cookieChoiceMade', 'accept', 1);
@@ -31,16 +34,31 @@ const attachAcceptClickHandler = (document) => {
 
 const attachRejectClickHandler = (document) => {
   const rejectButton = document.querySelector('[value="reject"][name="cookies"]');
+  if(!rejectButton) {
+    return;
+  }
   rejectButton.onclick = () => { 
     console.log('CLICKED REJECT');
     setCookie('cookieChoiceMade', 'reject', 1);
   };
 }
 
+const attachHideClickHandler = (document) => {
+  const hideButton = document.querySelector('[value="hide"][name="hideCookies"]');
+  if(!hideButton) {
+    return;
+  }
+  hideButton.onclick = () => {
+    console.log('CLICKED HIDE');
+    setCookie('hideCookies', 'hide', 1);
+  }
+}
+
 function initAll() {
   console.log('init');
   attachAcceptClickHandler(document);
   attachRejectClickHandler(document);
+  attachHideClickHandler(document);
 
   //document.querySelector('[value="reject"][name="cookies"]')
 }

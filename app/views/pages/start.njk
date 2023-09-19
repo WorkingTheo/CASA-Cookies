@@ -43,6 +43,39 @@
     </form>
   {% endif %}
 
+  {% if showSecondBanner %}
+    {% set html %}
+      <p class="govuk-body">
+        You’ve accepted additional cookies. You can 
+        <a href="#">change your cookie settings</a>
+         at any time.
+      </p>
+    {% endset %}
+
+    <form action="#" method="post">
+      {{ govukCookieBanner({
+        messages: [
+          {
+            headingText: "Cookies on [name of service]",
+            html: html,
+            actions: [
+              {
+                text: "Hide cookie message",
+                type: "submit",
+                name: "hideCookies",
+                value: "hide"
+              },
+              {
+                text: "View cookies",
+                href: "#"
+              }
+            ]
+          }
+        ]
+      }) }}
+    </form>
+  {% endif %}
+
   {{ govukHeader({
     assetsPath: assetPath + "/images",
     serviceName: t('common:serviceName') if t else '',

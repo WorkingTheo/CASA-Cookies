@@ -56,6 +56,10 @@ const app = (
     console.log('cookieChoiceMade:', cookieChoiceMade);
     res.locals.showBanner = cookieChoiceMade === undefined;
 
+    const hideCookieMessage = req.cookies['hideCookies'];
+    console.log('hideCookies: ', hideCookieMessage);
+    res.locals.showSecondBanner = cookieChoiceMade !== undefined && hideCookieMessage === undefined;
+    
     if(cookieChoiceMade === 'accept') {
       res.locals.allowCookies = true;
     }
