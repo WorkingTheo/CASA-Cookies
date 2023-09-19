@@ -2,7 +2,7 @@ import path from 'path';
 import helmet from 'helmet';
 import { Store } from 'express-session';
 import { configure, Plan } from "@dwp/govuk-casa";
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 
 const app = (
   name: string,
@@ -44,12 +44,28 @@ const app = (
   ancillaryRouter.use('/start', (req: Request, res: Response) => {
     if(req.method === 'POST') {
       console.log('POST');
-      console.log(req.body.cookies);
+      //console.log(req.body.cookies);
     } else {
       console.log('GET');
     }
     res.render('pages/start.njk');
   });
+
+  ancillaryRouter.prependUse((req: Request, res: Response, next: NextFunction) => {
+    const cookieChoiceMade = req.cookies['cookieChoiceMade'];
+    console.log('cookieChoiceMade:', cookieChoiceMade);
+    res.locals.showBanner = cookieChoiceMade === undefined;
+
+    if(cookieChoiceMade === 'accept') {
+      res.locals.allowCookies = true;
+    }
+
+    if(cookieChoiceMade === 'reject') {
+      res.locals.allowCookies = false;
+    }
+
+    next();
+  })
 
   return mount(casaApp, {});
 }
