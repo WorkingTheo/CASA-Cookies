@@ -42,19 +42,7 @@
       }) }}
     </form>
 
-    <script nonce="{{ cspNonce }}" defer="defer">
-      const acceptButton = document.querySelector('[value="accept"][name="cookies"]');
-      acceptButton.onclick = () => {
-        console.log('CLICKED ACCEPT');
-        setCookie('cookieChoiceMade', 'accept', 1);
-      };
-
-      const rejectButton = document.querySelector('[value="reject"][name="cookies"]');
-      rejectButton.onclick = () => {
-        console.log('CLICKED REJECT');
-        setCookie('cookieChoiceMade', 'reject', 1);
-      };
-    </script>
+    {% include "partials/cookie-banner-script-1.njk" %}
   {% endif %}
 
   {% if showSecondBanner %}
@@ -90,13 +78,7 @@
       }) }}
     </form>
 
-    <script nonce="{{ cspNonce }}" defer="defer">
-      const hideButton = document.querySelector('[value="hide"][name="hideCookies"]');
-      hideButton.onclick = () => {
-        console.log('CLICKED HIDE');
-        setCookie('hideCookies', 'hide', 1);
-      }
-    </script>
+    {% include "partials/cookie-banner-script-2.njk" %}
   {% endif %}
 
   {{ govukHeader({
