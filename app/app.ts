@@ -53,21 +53,25 @@ const app = (
 
   ancillaryRouter.prependUse((req: Request, res: Response, next: NextFunction) => {
     const cookieChoiceMade = req.cookies['cookieChoiceMade'];
-    console.log('cookieChoiceMade:', cookieChoiceMade);
+    const cookies = req.body.cookies;
     res.locals.showBanner = cookieChoiceMade === undefined;
 
+    if(cookieChoiceMade === undefined && cookies) {
+      res.cookie('cookieChoiceMade', cookies);
+    }
+
+    res.locals.allowCookies = cookieChoiceMade === 'accept' || cookies === 'accept';
+
     const hideCookieMessage = req.cookies['hideCookies'];
-    console.log('hideCookies: ', hideCookieMessage);
+    const hideCookies = req.body.hideCookies;
     res.locals.showSecondBanner = cookieChoiceMade !== undefined && hideCookieMessage === undefined;
+
+    if(hideCookieMessage === undefined && hideCookies) {
+      res.cookie('hideCookies', hideCookies);
+    }
+
+    console.log(req.body);
     
-    if(cookieChoiceMade === 'accept') {
-      res.locals.allowCookies = true;
-    }
-
-    if(cookieChoiceMade === 'reject') {
-      res.locals.allowCookies = false;
-    }
-
     next();
   })
 
