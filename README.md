@@ -19,3 +19,9 @@ The `main` branch employs the following approach:
 The `second-approach` branch employs a similar approach to the above, but with a slight difference: 
 - The click handlers are in `script` tags and are added conditionally inside the `if` statements (see `.app/views/pages/start.njk`)
 - This way the click handlers are only added when needed
+
+The `third-approach` branch takes an entirely different approach. No client-side JS is used at all, instead: 
+- Clicking buttons does a `POST` request to the request handler
+- Cookies are set inside the request handler
+- The variables that are passed to nunjucks for conditional rendering are computed inside the request handler
+- This approach completely gets rid of the necessity for client side JS
