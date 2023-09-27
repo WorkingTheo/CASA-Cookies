@@ -54,7 +54,7 @@ const app = (
   ancillaryRouter.prependUse((req: Request, res: Response, next: NextFunction) => {
     const cookieChoiceMade = req.cookies['cookieChoiceMade'];
     const cookies = req.body.cookies;
-    res.locals.showBanner = cookieChoiceMade === undefined;
+    res.locals.showBanner = cookieChoiceMade === undefined && cookies === undefined;
 
     if(cookieChoiceMade === undefined && cookies) {
       res.cookie('cookieChoiceMade', cookies);
@@ -64,8 +64,7 @@ const app = (
 
     const hideCookieMessage = req.cookies['hideCookies'];
     const hideCookies = req.body.hideCookies;
-    res.locals.showSecondBanner = cookieChoiceMade !== undefined && hideCookieMessage === undefined;
-
+    res.locals.showSecondBanner = !res.locals.showBanner && hideCookieMessage === undefined && hideCookies === undefined;
     if(hideCookieMessage === undefined && hideCookies) {
       res.cookie('hideCookies', hideCookies);
     }
