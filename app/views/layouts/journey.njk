@@ -2,5 +2,11 @@
 
 {% block head %}
   {{ super() }}
+  {% include "partials/gtm-head.njk" %}
   {% include "partials/styles.njk" %}
+{% endblock %}
+
+{% block bodyStart %}
+  {% include "partials/gtm-body.njk" %}
+  {% include "partials/cookie-banner.njk" %}
 {% endblock %}
