@@ -7,10 +7,11 @@ There are 2 branches, `main` and `second-approach`.
 
 ## TLDR: Outline of the Approach
 No client-side JS is used at all, instead: 
-- Clicking buttons does a `GET` request to the request handler
+- Clicking buttons does a `POST` request to the request handler
 - Cookies are set inside the request handler
 - The variables that are passed to nunjucks for conditional rendering are computed inside the request handler
 - This approach completely gets rid of the necessity for client side JS
+- Using a `POST` request also get rids of the ugly URL query parameters that are required with `GET`
 
 ## How to Implement 
 - Add `app/views/partials/gtm-body.njk` and `app/views/partials/gtm-head.njk`. Replace the code with the code probvided by Google Tag Manager for your project. 
