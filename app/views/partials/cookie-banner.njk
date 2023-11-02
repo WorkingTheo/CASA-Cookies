@@ -1,66 +1,68 @@
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 
-{% if showBanner %}
-  {% set html %}
-  <p class="govuk-body">We use some essential cookies to make this service work.</p>
-  <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
-  {% endset %}
+{% if showCookiesBanner %}
+    {% set html %}
+    <p class="govuk-body">
+      {{ t('cookies-banner:bodyTextEssentialCookies') }}
+    </p>
+    <p class="govuk-body">
+      {{ t('cookies-banner:bodyTextAnalyticsCookies') }}
+    </p>
+    {% endset %}
 
-  <form action="#" method="get">
-    {{ govukCookieBanner({
-      ariaLabel: "Cookies on [name of service]",
+    <form action="#" method="post">
+      {{ govukCookieBanner({
+      ariaLabel: t('cookies-banner:cookiesHeader'),
       messages: [
         {
-          headingText: "Cookies on [name of service]",
+          headingText: t('cookies-banner:cookiesHeader'),
           html: html,
           actions: [
             {
-              text: "Accept analytics cookies",
+              text: t('cookies-banner:acceptCookies'),
               type: "submit",
               name: "cookies",
               value: "accept"
             },
             {
-              text: "Reject analytics cookies",
+              text: t('cookies-banner:rejectCookies'),
               type: "submit",
               name: "cookies",
               value: "reject"
             },
             {
-              text: "View cookies",
+              text: t('cookies-banner:viewCookies'),
               href: "#"
             }
           ]
         }
       ]
     }) }}
-  </form>
+    </form>
 {% endif %}
 
-{% if showSecondBanner %}
+{% if showHideCookieMessageBanner %}
   {% set html %}
-  <p class="govuk-body">
-    You’ve accepted additional cookies. You can 
-    <a href="#">change your cookie settings</a>
-    at any time.
-  </p>
+    <p class="govuk-body">      
+        You’ve accepted additional cookies. You can <a href="#">change your cookie settings at any time.</a>
+    </p>
   {% endset %}
 
-  <form action="#" method="get">
+  <form action="#" method="post">
     {{ govukCookieBanner({
       messages: [
         {
-          headingText: "Cookies on [name of service]",
+          headingText: t('cookies-banner:cookiesHeader'),
           html: html,
           actions: [
             {
-              text: "Hide cookie message",
+              text: t('cookies-banner:hideCookiesMessage'),
               type: "submit",
               name: "hideCookies",
               value: "hide"
             },
             {
-              text: "View cookies",
+              text: t('cookies-banner:viewCookies'),
               href: "#"
             }
           ]
